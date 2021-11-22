@@ -13,17 +13,17 @@ package Clases;
  * @author jose_
  */
 public class Nodo {
-    String operador;
+    String palabra;
     Nodo next;
 
-    Nodo(String operador ) {
-        this.operador = operador;
+    Nodo(String palabra ) {
+        this.palabra = palabra;
         this.next = null;
     }
     
  
     public String valorString(){
-        return operador; 
+        return palabra; 
     }
  
 
