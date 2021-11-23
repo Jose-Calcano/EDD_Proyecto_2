@@ -84,7 +84,8 @@ public class General extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Funciones funcion = new Funciones();
-        funcion.cargarArchivo();
+        String info_txt = funcion.cargarArchivo();
+        funcion.separacionInfo(info_txt);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

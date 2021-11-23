@@ -8,6 +8,8 @@ package Clases;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.StringReader;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -16,10 +18,10 @@ import javax.swing.JOptionPane;
  * @author jose_
  */
 public class Funciones {
+
     
     
-    
-        public void cargarArchivo() {
+    public String cargarArchivo() {
         String info_txt = "";
         JFileChooser jf = new JFileChooser();
         jf.showOpenDialog(null);
@@ -35,11 +37,27 @@ public class Funciones {
             }
             System.out.println(info_txt);
             
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error de lectura");
         }
-        
-        
+        return info_txt;
+    }
+
+    public String separacionInfo(String info_txt) throws IOException {
+        String cambio = info_txt.replace(',', '\n').replace('.', '\n').replace(':', '\n').replace(';', '\n').replace('?', '\n').replace('¿', '\n').replace('!', '\n').replace('¡', '\n').replace('/', '\n').replace(' ', '\n').replace('*' , '\n').replace('-', '\n').replace('_', '\n').replace('…', '\n').replace('[' , '\n').replace(']' , '\n');
+        BufferedReader bufReader = new BufferedReader(new StringReader(cambio));
+        String line = null;
+        while ((line = bufReader.readLine()) != null) {
+            Nodo nodito = new Nodo(line);
+            
+        }
+
+        return cambio;
+    }
+
+}
+
         /**try {
             if (!"".equals(info_txt)) {
                 String[] arr_txt = info_txt.split("\n");
@@ -102,5 +120,4 @@ public class Funciones {
             JOptionPane.showMessageDialog(null, "Error de lectura");
         }*/
 
-    }
-}
+
