@@ -49,7 +49,7 @@ public class Funciones {
         BufferedReader bufReader = new BufferedReader(new StringReader(cambio));
         String line = null;
         while ((line = bufReader.readLine()) != null) {
-            Nodo nodito = new Nodo(line);
+            Node nodito = new Node(line);
             
         }
 
