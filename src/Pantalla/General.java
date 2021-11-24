@@ -1,6 +1,9 @@
 package Pantalla;
 
 import Clases.Funciones;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -85,7 +88,11 @@ public class General extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Funciones funcion = new Funciones();
         String info_txt = funcion.cargarArchivo();
-        funcion.separacionInfo(info_txt);
+        try {
+            funcion.separacionInfo(info_txt);
+        } catch (IOException ex) {
+            Logger.getLogger(General.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

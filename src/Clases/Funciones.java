@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
  */
 public class Funciones {
 
+    public File documento;
     
     
     public String cargarArchivo() {
@@ -26,6 +27,7 @@ public class Funciones {
         JFileChooser jf = new JFileChooser();
         jf.showOpenDialog(null);
         File archivo = jf.getSelectedFile();
+        this.documento = archivo;
         try {
             FileReader fr = new FileReader(archivo);
             BufferedReader br = new BufferedReader(fr);
@@ -44,16 +46,17 @@ public class Funciones {
         return info_txt;
     }
 
-    public String separacionInfo(String info_txt) throws IOException {
+    public HashTable separacionInfo(String info_txt) throws IOException {
         String cambio = info_txt.replace(',', '\n').replace('.', '\n').replace(':', '\n').replace(';', '\n').replace('?', '\n').replace('¿', '\n').replace('!', '\n').replace('¡', '\n').replace('/', '\n').replace(' ', '\n').replace('*' , '\n').replace('-', '\n').replace('_', '\n').replace('…', '\n').replace('[' , '\n').replace(']' , '\n');
+        int tamaño = cambio.length();
+        HashTable tabla = new HashTable(tamaño);
         BufferedReader bufReader = new BufferedReader(new StringReader(cambio));
         String line = null;
         while ((line = bufReader.readLine()) != null) {
-            Node nodito = new Node(line);
-            
+            tabla.Hashing(line);
         }
 
-        return cambio;
+        return tabla;
     }
 
 }
