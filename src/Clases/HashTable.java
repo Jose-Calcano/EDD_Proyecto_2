@@ -5,235 +5,141 @@
  */
 package Clases;
 
-import Clases.HashNode;
-import Clases.Node;
-import Clases.LinkedList;
-
 /**
  *
  * @author dianabello
  */
 public class HashTable<K,V> {
-    // bucketArray is used to store array of chains
-    private LinkedList<HashNode<K, V>> bucketArray;
-    // Current capacity of Hash Table
-    private int capacity;
-    // Current size of Hash Table
-    private int size;
+    
+    private Node hash[];
+    private int size;     // Tamaño actual de la tabla 
+    
     
     /**
-     *  Creates a new HashTable instance with a limit number of buckets of 10
+     * Crea una hash Table con un tamaño predeterminado
+     * @param size
      */
-    public HashTable() {
-        this.bucketArray = new LinkedList<>();
-        this.capacity = 10;
-        this.size = 0;
-        // Create empty buckets
-        for (int i = 0; i < capacity; i++)
-            bucketArray.addLast(null);
+    public HashTable(int size){
+        this.size = size; 
+        this.hash = new Node[size];
+        for (int i = 0; i < size; i++) {
+            this.hash[i] = null; 
+        }
     }
-    
     /**
-     * Creates a new HashTable instance with the specified limit number of buckets 
-     * @param capacity maximum number of Buckets for the HashTable
-     */
-    public HashTable(int capacity) {
-        this.bucketArray = new LinkedList<>();
-        this.capacity = capacity;
-        this.size = 0;
-        // Create empty buckets
-        for (int i = 0; i < capacity; i++)
-            bucketArray.addLast(null);
-    }
-    
-    /**
-     * Gets the current size of the HashTable
-     * @return Size of the HashTable
+     * Obtiene el tamaño actuañ de la tabla
+     * @return Tamaño de la tabla
      */
     public int size() { return size; }
     
     /**
-     * Get whether HashTable is empty or not
-     * @return Boolean indicating whether HashTable is empty or not
+     * Obtiene si la HashTable esta vacia o no
+     * @return Un boolean que indica si esta o no vacia
      */
     public boolean isEmpty() { return size() == 0; }
     
-    /**
-     * Generates unique HashCode for the specified key
-     * @param key necessary to generate HashCode
-     * @return Unique HashCode
-     */
-    private final int hashCode(K key) {
-        // Convert element to String
-        String keyStringified = key.toString();
-        // Returnable hash
-        int hash = 0;
-        for (int i = 0; i < keyStringified.length(); i++)
-            // Generate unique value by converting each character in its unicode
-            // representation and multiplying by position on string
-            hash = (hash + Character.codePointAt(keyStringified, i) * i);
-        
-        return hash;
-    }
     
     /**
-     * Gets the bucketIndex that corresponds to the given key
-     * @param key to which index will be calculated
-     * @return Index in the bucketArray
+     * Obtiene un key para los valores agg
+     * @param key
+     * @return La posición del arreglo
      */
-    private int getBucketIndex(K key) {
-        int hashCode = hashCode(key);
-        // hashCode % capacity allows to get a key in the range of the capacity
-        int index = hashCode % this.capacity;
-        return index;
-    }
-    
-    /**
-     * Adds a new key-value pair to the HashTable
-     * @param key key of the element
-     * @param value value of the element
-     */
-    public void add(K key, V value) {
-        // Find head of chain for given key
-        int bucketIndex = getBucketIndex(key);
-        int hashCode = hashCode(key);
-        HashNode<K,V> head = bucketArray.get(bucketIndex);
+    public int Hashing(String key){
+        int value = 0; 
+        int position = 1; 
         
-        // Check if key is already present
-        while (head != null) {
-            if (head.getKey().equals(key) && head.getHashCode() == hashCode) {
-                head.setValue(value);
-                return;
+        for (int i = 0; i < key.length(); i++) {
+            if (key.codePointAt(i) == 32) {
+                value += 0;
+            }else if (key.codePointAt(i) >= 48 && key.codePointAt(i) <= 57) {
+                value += ((key.codePointAt(i) - 47) * position);
+            }else if (key.codePointAt(i) >= 65 && key.codePointAt(i) <= 90) {
+                value += ((key.codePointAt(i) - 54) * position);
+            }else if (key.codePointAt(i) >= 97 && key.codePointAt(i) <= 122) {
+                value += ((key.codePointAt(i) - 60) * position);
             }
-            head = head.getNext();
+            position ++;
         }
-        
-        // Insert key in chain
-        
-        size++;
-        head = bucketArray.get(bucketIndex);
-        HashNode<K, V> newNode = new HashNode<K,V>(key, value, hashCode);
-        newNode.setNext(head);
-        bucketArray.set(bucketIndex, newNode);
-        
-        
-        // If load factor goes beyond threshold, then
-        // double hash table size
-        
-        if ((1.0 * size)/capacity >= 0.7) {
-            LinkedList<HashNode<K,V>> temp = bucketArray;
-            bucketArray = new LinkedList<>();
-            capacity *=2;
-            size = 0;
-            for (int i = 0; i< capacity; i++)
-                bucketArray.addLast(null);
-            
-            Node bucketHead = temp.getHead();
-            while(bucketHead != null) {
-                HashNode<K,V> headNode = (HashNode<K,V>)bucketHead.getData();
-                while(headNode != null) {
-                    add(headNode.getKey(), headNode.getValue());
-                    headNode = headNode.getNext();
+        return (value % size);
+    }
+    
+    /**
+     * Inserta un dato en la hashTable 
+     * @param word
+     */
+     public void insert(String word){
+        int position = Hashing(word);
+        boolean exist = false; 
+        if (this.hash[position] != null) {
+           Node temp = this.hash[position];
+            if (temp.getWord().equals(word)) {
+                exist = true; 
+            }
+            while(temp.getNextHash() != null){
+                temp = temp.getNextHash();
+                if (temp.getWord().equals(word)) {
+                exist = true; 
                 }
-                bucketHead = bucketHead.getNext();
             }
+            if (!exist) {
+                Node new2 = new Node(word);
+                temp.setNextHash(new2);
+            }
+        }else{
+            Node new3 = new Node(word);
+            this.hash[position] = new3;
         }
-        
     }
     
-    /**
-     * Returns value for the specified key
-     * @param key to get value to
-     * @return value for the specified key
-     */
-    public V get(K key) {
-        // Find head of chain for given key
-        int bucketIndex = getBucketIndex(key);
-        int hashCode = hashCode(key);
-        
-        HashNode<K,V> head = bucketArray.get(bucketIndex);
-        
-        // Search key in chain
-        while(head != null) {
-            if (head.getKey().equals(key) && head.getHashCode() == hashCode) {
-                return head.getValue();
-            }
-            head = head.getNext();
-        }
-        
-        // If key not found
-        return null;
-    }
     
-    /**
-     * Removes the given key from the HashTable
-     * @param key key to be deleted
-     * @return the value of the deleted key
+     /**
+     * Busca un nodo en la hashTable
+     * @return El nodo buscado
      */
-    public V remove(K key) {
-        // Apply hash function to find index for given key
-        int bucketIndex = getBucketIndex(key);
-        int hashCode = hashCode(key);
-        // Get head of chain
-        HashNode<K,V> head = bucketArray.get(bucketIndex);
-        
-        // Search for key in its chain
-        HashNode<K,V> prev = null;
-        while (head != null) {
-            // If Key found
-            if (head.getKey().equals(key)  && head.getHashCode() == hashCode)
-                break;
-            
-            // Else keep moving in chain
-            prev = head;
-            head = head.getNext();
+    public Node search(String word){
+        int position = Hashing(word);
+        Node temp = this.hash[position];
+        boolean exist = false;
+        if (temp != null) {
+            if (temp.getNextHash() != null) {
+                exist = true; 
+            }else{
+                while(temp.getNextHash() != null && !exist){
+                    if (temp.getData().equals(word)) {
+                        exist = true; 
+                    }else{
+                        temp = temp.getNextHash();
+                    }
+                }
+            }
         }
-        
-        // If key was not there
-        if (head == null)
+        if (exist) {
+            return temp;
+        }else{
             return null;
-        
-        // Reduce size
-        size--;
-        
-        // Remove key
-        if (prev != null)
-            prev.setNext(head.getNext());
-        else
-            bucketArray.set(bucketIndex, head.getNext());
-        
-        return head.getValue();
-    }
-    
-    /**
-     * Prints the current state of the Hash Table
-     */
-    public void print() {
-        // Reference to the first bucket
-        Node bucketHead = bucketArray.getHead();
-        int index = 0;
-        // For every bucket
-        while (bucketHead != null) {
-            // Get reference to the chain in current bucket
-            HashNode<K,V> headNode = (HashNode<K,V>)bucketHead.getData();
-            // Print current bucket
-            System.out.print("i" + index + ":");
-            int j = 0;
-            // For every Node in chain
-            while (headNode != null) {
-//                System.out.print(headNode.getValue() + "->");
-                // Print current element in chain
-                System.out.print((j > 0 ? "->" : "") + headNode.getValue());
-                j++;
-                // Move to next element
-                headNode = headNode.getNext();
-            }
-            // Increase bucket index
-            index++;
-            j = 0;
-            System.out.println("");
-            // Move to next bucket
-            bucketHead = bucketHead.getNext();
         }
     }
+    
+    
+    
+    /**
+     * Muestra los datos de la hash table por consola
+     */
+    public void print(){
+        for (int i = 0; i < size; i++) {
+            if (this.hash[i] != null) {
+                System.out.println(this.hash[i].getWord());
+                if (this.hash[i].getNextHash() != null ) {
+                    Node temp = this.hash[i].getNextHash();
+                    while(temp != null){
+                        System.out.println(temp.getWord());
+                        temp = temp.getNextHash();
+                    }
+                }
+            }
+        }
+        
+    }
+   
+    
 }

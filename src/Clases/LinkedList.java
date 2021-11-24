@@ -5,17 +5,15 @@
  */
 package Clases;
 
-import Main.Node;
-
 /**
  *
  * @author dianabello
  */
-public class LinkedList<T> {
-    private Node<T> head;
-    private Node<T> tail;
+public class LinkedList {
+    private Node head;
+    private Node tail;
 
-    public Node<T> getHead() {
+    public Node getHead() {
         return this.head;
     }
     /**
@@ -29,11 +27,11 @@ public class LinkedList<T> {
      * Constructor for list initially with one node
      * @param n
      */
-    public LinkedList(Node<T> n) {
+    public LinkedList(Node n) {
         this.head = this.tail = n;
     }
 
-    public void setHead(Node<T> head) {
+    public void setHead(Node head) {
         this.head = head;
     }
     
@@ -56,9 +54,9 @@ public class LinkedList<T> {
             return 0;
         }
         
-        Node<T> aux = this.head;
+        Node aux = this.head;
         while(aux != null) {
-            aux = aux.getNext();
+            aux = aux.getNextList();
             i++;
         }
         return i;
@@ -68,15 +66,15 @@ public class LinkedList<T> {
      * Add datum to the first position of the list
      * @param datum Datum to be added
      */
-    public void addFirst(T datum) {
-        Node<T> n = new Node(datum);
+    public void addFirst(Object datum) {
+        Node n = new Node(datum);
         if (isEmpty()) {
             this.head = n;
             this.tail = n;
-            this.head.setNext(this.tail);
-            this.tail.setNext(null);
+            this.head.setNextList(this.tail);
+            this.tail.setNextList(null);
         } else {
-            n.setNext(this.head);
+            n.setNextList(this.head);
             this.head = n;
         }
     }
@@ -85,15 +83,15 @@ public class LinkedList<T> {
      * Add datum to the last position of the list
      * @param datum Datum to be added
      */
-    public void addLast(T datum) {
-        Node<T> n = new Node(datum);
+    public void addLast(Object datum) {
+        Node n = new Node(datum);
         if (isEmpty()) {
             this.head = n;
             this.tail = n;
-            this.head.setNext(this.tail);
-            this.tail.setNext(null);
+            this.head.setNextList(this.tail);
+            this.tail.setNextList(null);
         } else {
-            this.tail.setNext(n);
+            this.tail.setNextList(n);
             this.tail = n;
         }
     }
@@ -103,7 +101,7 @@ public class LinkedList<T> {
      * @param datum Datum to be added
      * @param i Position to be added in
      */
-    public void add(T datum, int i) {
+    public void add(Object datum, int i) {
         if (isEmpty() || i == 0) {
             this.addFirst(datum);
         } else if (i >= (size() - 1)) {
@@ -111,15 +109,15 @@ public class LinkedList<T> {
         } else if (i < 0) {
             this.add(datum, size() + i);
         }else {
-            Node<T> n = new Node(datum);
+            Node n = new Node(datum);
             Node aux = this.head; // Nodo previo
             int count = 0;
             while(count < i -1) {
-                aux = aux.getNext();
+                aux = aux.getNextList();
                 count++;
             }
-            n.setNext(aux.getNext());
-            aux.setNext(n);
+            n.setNextList(aux.getNextList());
+            aux.setNextList(n);
         }
     }
 
@@ -127,13 +125,13 @@ public class LinkedList<T> {
      * Deletes first element of the list
      * @return The data of the first element
      */
-    public T deleteFirst() {
+    public Object deleteFirst() {
         if (isEmpty()) {
             return null;
         }
-        Node<T> temp = this.head;
-        this.head= this.head.getNext();
-        temp.setNext(null);
+        Node temp = this.head;
+        this.head= this.head.getNextList();
+        temp.setNextList(null);
         return temp.getData();
     }
     
@@ -141,18 +139,18 @@ public class LinkedList<T> {
      * Deletes last element of the list
      * @return The data of the last element
      */
-    public T deleteLast() {
+    public Object deleteLast() {
         if (isEmpty()) {
             return null;
         }
-        Node<T> pre = this.head;
-        while(pre.getNext().getNext() != null) {
-            pre = pre.getNext();
+        Node pre = this.head;
+        while(pre.getNextList().getNextList() != null) {
+            pre = pre.getNextList();
         }
-        Node<T> temp = pre.getNext();
-        pre.setNext(null);
+        Node temp = pre.getNextList();
+        pre.setNextList(null);
         this.tail = pre;
-        temp.setNext(null);
+        temp.setNextList(null);
         return temp.getData();
         
     }
@@ -162,7 +160,7 @@ public class LinkedList<T> {
      * @param i The position to be deleted
      * @return The data of the deleted element
      */
-    public T delete(int i) {
+    public Object delete(int i) {
         if (isEmpty()) {
             return null;
         } else if (i == 0) {
@@ -175,15 +173,15 @@ public class LinkedList<T> {
             System.out.println("\nError");
             return null;
         } else {
-            Node<T> aux = this.head;
+            Node aux = this.head;
             int count = 0;
             while(count < i-1) {
-                aux = aux.getNext();
+                aux = aux.getNextList();
                 count++;
             }
-            Node<T> del = aux.getNext();
-            aux.setNext(del.getNext());
-            del.setNext(null);
+            Node del = aux.getNextList();
+            aux.setNextList(del.getNextList());
+            del.setNextList(null);
             return del.getData();
         }
     }
@@ -199,7 +197,7 @@ public class LinkedList<T> {
             int i = 0;
             while (aux != null) {
                 System.out.print(aux.getData() + "(" + i + ")" + " -> ");
-                aux = aux.getNext();
+                aux = aux.getNextList();
                 i++;
             }
             System.out.println("");
@@ -208,8 +206,8 @@ public class LinkedList<T> {
     
     public void sortList() {  
         //Node current will point to head  
-        Node<T> current = head, index = null;  
-        T temp;  
+        Node current = head, index = null;  
+        Object temp;  
           
         if(head == null) {  
             return;  
@@ -217,7 +215,7 @@ public class LinkedList<T> {
         else {  
             while(current != null) {  
                 //Node index will point to node next to current  
-                index = current.getNext();  
+                index = current.getNextList();  
                   
                 while(index != null) {  
                     //If current node's data is greater than index's node data, swap the data between them  
@@ -226,9 +224,9 @@ public class LinkedList<T> {
                         current.setData(index.getData());  
                         index.setData(temp);  
                     }  
-                    index = index.getNext();  
+                    index = index.getNextList();  
                 }  
-                current = current.getNext();  
+                current = current.getNextList();  
             }      
         }  
     }  
@@ -247,12 +245,12 @@ public class LinkedList<T> {
             if (Node.comparator(n1, n2) <= 0)
             {
                     result = n1;
-                    result.setNext(sortedMerge(n1.getNext(), n2));
+                    result.setNextList(sortedMerge(n1.getNextList(), n2));
             }
             else
             {
                     result = n2;
-                    result.setNext(sortedMerge(n1, n2.getNext()));
+                    result.setNextList(sortedMerge(n1, n2.getNextList()));
             }
 
             return result;
@@ -261,27 +259,27 @@ public class LinkedList<T> {
 //splitting list into two halves
     public Node[] splitList(Node n) {
             // base case
-            if (n == null || n.getNext() == null) {
+            if (n == null || n.getNextList() == null) {
                     return new Node[]{ n, null } ;
             }
 
             Node backward = n;
-            Node forward = n.getNext();
+            Node forward = n.getNextList();
 
             // Forward moves twice and backward moves once
             while (forward != null)
             {
-                    forward = forward.getNext();
+                    forward = forward.getNextList();
                     if (forward != null)
                     {
-                            backward = backward.getNext();
-                            forward = forward.getNext();
+                            backward = backward.getNextList();
+                            forward = forward.getNextList();
                     }
             }
 
     // splitting the linked list
-            Node[] arr = new Node[]{ n, backward.getNext() };
-            backward.setNext(null);
+            Node[] arr = new Node[]{ n, backward.getNextList() };
+            backward.setNextList(null);
 
             return arr;
     }
@@ -290,7 +288,7 @@ public class LinkedList<T> {
     public Node mergeSort(Node head)
     {
             // Base case
-            if (head == null || head.getNext() == null) {
+            if (head == null || head.getNextList() == null) {
                     return head;
             }
 
@@ -311,11 +309,11 @@ public class LinkedList<T> {
      * @param index index of the element to look for
      * @return Data of the element at given index
      */
-    public T get(int index) {
-        Node<T> aux = this.head;
+    public Object get(int index) {
+        Node aux = this.head;
         int count = 0;
         while(count < index) {
-            aux = aux.getNext();
+            aux = aux.getNextList();
             count++;
         }
         
@@ -326,13 +324,13 @@ public class LinkedList<T> {
      * Replaces the first node of the list with another
      * @param datum data to be replaced in the first node
      */
-    public void setFirst(T datum) {
+    public void setFirst(Object datum) {
         if (isEmpty()) {
             addFirst(datum);
         } else {
-            Node<T> n = new Node(datum);
-            n.setNext(this.head.getNext());
-            this.head.setNext(null);
+            Node n = new Node(datum);
+            n.setNextList(this.head.getNextList());
+            this.head.setNextList(null);
             this.head = n;
         }
     }
@@ -341,25 +339,25 @@ public class LinkedList<T> {
      * Replaces the last node of the list with another
      * @param datum data to be replaced in the last node
      */
-    public void setLast(T datum) {
-        Node<T> n = new Node(datum);
-        Node<T> pre = this.head;
-        while(pre.getNext().getNext() != null) {
-            pre = pre.getNext();
+    public void setLast(Object datum) {
+        Node n = new Node(datum);
+        Node pre = this.head;
+        while(pre.getNextList().getNextList() != null) {
+            pre = pre.getNextList();
         }
         
-        Node<T> temp = pre.getNext();
-        pre.setNext(n);
+        Node temp = pre.getNextList();
+        pre.setNextList(n);
         this.tail = n;
-        temp.setNext(null);
+        temp.setNextList(null);
     }
     
     /**
      * Replaces the node at the given index with another containing the given data
      * @param i index of the node to be replaced
-     * @param datam data that will contain the node to replace with
+     * @param datum data that will contain the node to replace with
      */
-    public void set(int i, T datum) {
+    public void set(int i, Object datum) {
         if (isEmpty() || i == 0) {
             setFirst(datum);
         } else if (i == size() - 1) {
@@ -369,18 +367,18 @@ public class LinkedList<T> {
         } else if (i > size() - 1) {
             System.out.println("\nError");
         } else {
-            Node<T> n = new Node(datum);
-            Node<T> aux = this.head;
+            Node n = new Node(datum);
+            Node aux = this.head;
             int count = 0;
             while (count < i-1) {
-                aux = aux.getNext();
+                aux = aux.getNextList();
                 count++;
             }
             
-            Node<T> toReplace = aux.getNext();
-            n.setNext(toReplace.getNext());
-            aux.setNext(n);
-            toReplace.setNext(null);
+            Node toReplace = aux.getNextList();
+            n.setNextList(toReplace.getNextList());
+            aux.setNextList(n);
+            toReplace.setNextList(null);
         }
     }
 }

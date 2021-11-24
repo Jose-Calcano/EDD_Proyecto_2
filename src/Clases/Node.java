@@ -1,57 +1,70 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Clases;
 
 /**
  *
- * @author dianabello
+ * @author Diana Bello
+ * 
  */
-public class Node<T> {
-     private T data;
-    private Node next;
+public class Node {
+    
+    // Attributes
+    
+    private Object data;
+    private String word;
+    private Node nextList;
+    private Node nextHash;
+    
     
     /**
-     *
+     * Node constructor of the hashTable
+     * @param word
+     */
+    public Node(String word) {
+        this.nextHash = null; 
+        this.word = word; 
+    }
+    
+    /**
+     * Node constructor of the linkedList
      * @param datum
      */
-    public Node (T datum) {
+    public Node(Object datum){
         this.data = datum;
-        this.next = null;
+        this.nextList = null;
     }
 
-    /**
-     * Get Node's data
-     * @return the data inside Node
-     */
-    public T getData() {
+
+    public Object getData() {
         return data;
     }
 
-    /**
-     * Sets new data to Node
-     * @param data
-     */
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
     }
 
-    /**
-     *
-     * @return a reference to the next Node
-     */
-    public Node getNext() {
-        return next;
+    public String getWord() {
+        return word;
     }
 
-    /**
-     * Sets new Node to reference to
-     * @param next
-     */
-    public void setNext(Node next) {
-        this.next = next;
+    public void setWord(String word) {
+        this.word = word;
+    }
+
+    public Node getNextList() {
+        return nextList;
+    }
+
+    public void setNextList(Node nextList) {
+        this.nextList = nextList;
+    }
+
+    public Node getNextHash() {
+        return nextHash;
+    }
+
+    public void setNextHash(Node nextHash) {
+        this.nextHash = nextHash;
     }
     
     public static int comparator(Node firstNode, Node secondNode) {
