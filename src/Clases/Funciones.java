@@ -19,13 +19,14 @@ import javax.swing.JOptionPane;
  */
 public class Funciones {
 
-    
+    public File documento;
     
     public String cargarArchivo() {
         String info_txt = "";
         JFileChooser jf = new JFileChooser();
         jf.showOpenDialog(null);
         File archivo = jf.getSelectedFile();
+        this.documento = archivo;
         try {
             FileReader fr = new FileReader(archivo);
             BufferedReader br = new BufferedReader(fr);
