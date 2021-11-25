@@ -17,7 +17,7 @@ public class Application {
         hash.insert("carlos");
         
         hash.print();
-        System.out.println("");
+        System.out.print("");
         
         System.out.println(hash.Hashing("juan"));
         System.out.println(hash.Hashing("Diana"));
