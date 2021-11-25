@@ -129,11 +129,11 @@ public class HashTable<K,V> {
         int count = 1;
         for (int j = 0; j < size; j++) { 
             if (this.hash[j] != null) {
-                System.out.println(" Key: " + Hashing(this.hash[j].getWord()) + ". Value: " + this.hash[j].getWord());
+                System.out.print("\n Key: " + Hashing(this.hash[j].getWord()) + ". Value: " + this.hash[j].getWord());
                 if (this.hash[j].getNextHash() != null) {
                     Node temp = this.hash[j].getNextHash();
                     while (temp != null) {
-                        System.out.println(" Key: " + Hashing(temp.getWord()) + ". Value: " + temp.getWord());
+                        System.out.print(" --> Key: " + Hashing(temp.getWord()) + ". Value: " + temp.getWord());
                         temp = temp.getNextHash();
                         count++;
                     }
