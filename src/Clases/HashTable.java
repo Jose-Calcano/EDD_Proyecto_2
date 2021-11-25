@@ -125,21 +125,24 @@ public class HashTable<K,V> {
     /**
      * Muestra los datos de la hash table por consola
      */
-    public void print(){
-        for (int i = 0; i < size; i++) {
-            if (this.hash[i] != null) {
-                System.out.println(this.hash[i].getWord());
-                if (this.hash[i].getNextHash() != null ) {
-                    Node temp = this.hash[i].getNextHash();
-                    while(temp != null){
-                        System.out.println(temp.getWord());
+ public void print() {            
+        int count = 1;
+        for (int j = 0; j < size; j++) { 
+            if (this.hash[j] != null) {
+                System.out.println(" Key: " + Hashing(this.hash[j].getWord()) + ". Value: " + this.hash[j].getWord());
+                if (this.hash[j].getNextHash() != null) {
+                    Node temp = this.hash[j].getNextHash();
+                    while (temp != null) {
+                        System.out.println(" Key: " + Hashing(temp.getWord()) + ". Value: " + temp.getWord());
                         temp = temp.getNextHash();
+                        count++;
                     }
                 }
+                count++;
             }
         }
-        
-    }
+
+    } 
    
     
 }
