@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.StringReader;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -57,6 +58,75 @@ public class Funciones {
         }
 
         return tabla;
+    }
+    
+    public int hashing(String texto, int num) {
+        int resultado = 0;
+        if (num == -1) {
+            for (int i = texto.length() - 1; i >= 0; i--) {
+                int ascii = (texto.charAt((texto.length() - 1) - i)) % 499;
+                int factor = (int) (Math.pow(7, i) % 499);
+                resultado += (ascii * factor) % 499;
+            }
+            resultado = resultado % 499;
+        } else {
+            int ascii = texto.charAt(texto.length() - 1);
+            resultado = (num * 7) % 499;
+            resultado = (resultado + ascii) % 499;
+        }
+        return resultado;
+    }
+
+    public void rabinKarp(String frase) {
+        String texto = "";
+        try {
+            FileReader fr = new FileReader(documento);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (!line.isEmpty()) {
+                    texto += line + "\n";
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error de lectura");
+        }
+        if (texto.length() >= frase.length()) {
+            int hash1 = hashing(frase, -1);
+            int temp = -1;
+            int factor = (int) (Math.pow(7, frase.length() - 1) % 499);
+            boolean found = false;
+            for (int i = 0; i < texto.length() - frase.length() + 1 && !found; i++) {
+                String segment = texto.substring(i, i + frase.length());
+                int hash2 = hashing(segment, temp);
+                if (hash1 == hash2) {
+                    if (segment.equals(frase)) {
+                        found = true;
+                        temp = i;
+                        break;
+                    }
+                }
+                int ascii = segment.charAt(0);
+                int resta = ((ascii % 499) * factor) % 499;
+                temp = hash2 + 499 - resta;
+            }
+            if (found) {
+                JOptionPane.showMessageDialog(null, "El fragmento fue encontrado en la posición " + temp);
+                texto = texto.replaceAll(frase, "**" + frase + "**");
+                String ruta = documento.getAbsolutePath();
+                try {
+                    try (PrintWriter pw = new PrintWriter(ruta)) {
+                        pw.print(texto);
+                    }
+                } catch (Exception f) {
+                    JOptionPane.showMessageDialog(null, "Error al encontrar la ruta del archivo");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No encontrado");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "la frase ingresada es más larga que el texto a revisar.");
+        }
     }
 
 }
