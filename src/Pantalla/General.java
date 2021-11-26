@@ -17,11 +17,10 @@ import java.util.logging.Logger;
  */
 public class General extends javax.swing.JFrame {
 
-    /**
-     * Creates new form General
-     */
+    Funciones funcion;
     public General() {
         initComponents();
+        this.funcion = new Funciones();
     }
 
     /**
@@ -86,7 +85,6 @@ public class General extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Funciones funcion = new Funciones();
         String info_txt = funcion.cargarArchivo();
         try {
             funcion.separacionInfo(info_txt);
