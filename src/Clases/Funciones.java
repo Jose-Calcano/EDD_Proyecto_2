@@ -68,16 +68,15 @@ public class Funciones {
     public int hashing(String texto, int num) {
         int resultado = 0;
         if (num == -1) {
-            for (int i = texto.length() - 1; i >= 0; i--) {
-                int ascii = (texto.charAt((texto.length() - 1) - i)) % 499;
-                int factor = (int) (Math.pow(7, i) % 499);
-                resultado += (ascii * factor) % 499;
+            for (int i = 0; i < texto.length(); i++) {
+                int ascii = texto.charAt(i);
+                resultado = (resultado * 7 + ascii) % 499;
             }
-            resultado = resultado % 499;
         } else {
+            resultado = num * 7;
             int ascii = texto.charAt(texto.length() - 1);
-            resultado = (num * 7) % 499;
-            resultado = (resultado + ascii) % 499;
+            resultado += ascii;
+            resultado %= 499;
         }
         return resultado;
     }
@@ -99,7 +98,11 @@ public class Funciones {
         if (texto.length() >= frase.length()) {
             int hash1 = hashing(frase, -1);
             int temp = -1;
-            int factor = (int) (Math.pow(7, frase.length() - 1) % 499);
+            int factor = 1;
+            for (int i = 1; i < frase.length(); i++) {
+                factor *= 7;
+                factor %= 499;
+            }
             boolean found = false;
             for (int i = 0; i < texto.length() - frase.length() + 1 && !found; i++) {
                 String segment = texto.substring(i, i + frase.length());
@@ -112,8 +115,7 @@ public class Funciones {
                     }
                 }
                 int ascii = segment.charAt(0);
-                int resta = ((ascii % 499) * factor) % 499;
-                temp = hash2 + 499 - resta;
+                temp = hash2 + 499 - ((factor * ascii) % 499);
             }
             if (found) {
                 JOptionPane.showMessageDialog(null, "El fragmento fue encontrado en la posición " + temp);
