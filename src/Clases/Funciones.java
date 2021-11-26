@@ -21,6 +21,11 @@ import javax.swing.JOptionPane;
 public class Funciones {
 
     public File documento;
+    public boolean cargado;
+    
+    public Funciones() {
+        this.cargado = false;
+    }
     
     
     public String cargarArchivo() {
