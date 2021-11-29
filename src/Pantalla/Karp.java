@@ -16,9 +16,9 @@ public class Karp extends javax.swing.JFrame {
 
     Funciones funcion;
 
-    public Karp() {
+    public Karp(Funciones funcion) {
         initComponents();
-        this.funcion = new Funciones();
+        this.funcion = funcion;
     }
 
     /**
@@ -138,6 +138,9 @@ public class Karp extends javax.swing.JFrame {
         String frase = jTextArea1.getText();
         if (!frase.equals("")) {
             this.funcion.rabinKarp(frase);
+            General nw = new General(this.funcion);
+            nw.setVisible(true);
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Debes insertar la frase a comprobar en el recuadro de texto.");
         }

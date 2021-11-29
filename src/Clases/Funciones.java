@@ -25,6 +25,7 @@ public class Funciones {
     
     public Funciones() {
         this.cargado = false;
+        this.documento = null;
     }
     
     
@@ -118,7 +119,7 @@ public class Funciones {
                 temp = hash2 + 499 - ((factor * ascii) % 499);
             }
             if (found) {
-                JOptionPane.showMessageDialog(null, "El fragmento fue encontrado en la posición " + temp);
+                JOptionPane.showMessageDialog(null, "El fragmento fue encontrado en la posición " + temp + ", su aparición fue marcada en el artículo correspondiente.");
                 texto = texto.replaceAll(frase, "**" + frase + "**");
                 String ruta = documento.getAbsolutePath();
                 try {

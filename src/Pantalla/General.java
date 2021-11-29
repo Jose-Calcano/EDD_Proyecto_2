@@ -119,7 +119,7 @@ public class General extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (funcion.cargado) {
-            Karp nw = new Karp();
+            Karp nw = new Karp(this.funcion);
             nw.setVisible(true);
             this.dispose();
         } else {
