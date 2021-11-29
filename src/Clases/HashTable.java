@@ -62,7 +62,17 @@ public class HashTable<K,V> {
         }
         return (value % size);
     }
-     
+    
+     public int repeatedWord(String word) {
+        Node a = search(word);
+        if (a == null) {
+            System.out.println("\n No se encuentra en la tabla");
+            return 0;
+        } else {
+            return a.getRepeat();
+        }
+    }
+    
     public void saveInList(Node node) {
         LinkedList list = new LinkedList();
         list.addFirst(node);
@@ -77,11 +87,13 @@ public class HashTable<K,V> {
      public void insert(String word){
         int position = Hashing(word);
         boolean exist = false; 
+        
         if (this.hash[position] != null) {
            Node temp = this.hash[position];
             if (temp.getWord().equals(word)) {
                 exist = true; 
-                //cantidad ++;
+                System.out.println("Se repite = " + temp.getRepeat());
+                temp.setRepeat(temp.getRepeat() + 1);
             }
             while(temp.getNextHash() != null){
                 temp = temp.getNextHash();

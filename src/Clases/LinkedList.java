@@ -197,7 +197,7 @@ public class LinkedList {
             Node aux = this.head;
             int i = 0;
             while (aux != null) {
-                print += (aux.getData() + "(" + i + ")" + " -> ");
+                print += ( "Key: " + i + " Value: " + aux.getWord()); // "-->"
                 aux = aux.getNextList();
                 i++;
             }

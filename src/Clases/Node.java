@@ -14,7 +14,7 @@ public class Node {
     private String word;
     private Node nextList;
     private Node nextHash;
-    private int cantidad;
+    private int repeat;
     
     
     /**
@@ -33,7 +33,15 @@ public class Node {
     public Node(Object datum){
         this.data = datum;
         this.nextList = null;
-        this.cantidad = 1; 
+        this.repeat = repeat; 
+    }
+
+    public int getRepeat() {
+        return repeat;
+    }
+
+    public void setRepeat(int repeat) {
+        this.repeat = repeat;
     }
 
 
