@@ -62,7 +62,14 @@ public class HashTable<K,V> {
         }
         return (value % size);
     }
-    
+     
+    public void saveInList(Node node) {
+        LinkedList list = new LinkedList();
+        list.addFirst(node);
+        list.sortList();
+        System.out.println(list.print());
+        }
+   
     /**
      * Inserta un dato en la hashTable 
      * @param word
@@ -74,6 +81,7 @@ public class HashTable<K,V> {
            Node temp = this.hash[position];
             if (temp.getWord().equals(word)) {
                 exist = true; 
+                //cantidad ++;
             }
             while(temp.getNextHash() != null){
                 temp = temp.getNextHash();
@@ -84,10 +92,12 @@ public class HashTable<K,V> {
             if (!exist) {
                 Node new2 = new Node(word);
                 temp.setNextHash(new2);
+                saveInList(new2);
             }
         }else{
             Node new3 = new Node(word);
             this.hash[position] = new3;
+            saveInList(new3);
         }
     }
     

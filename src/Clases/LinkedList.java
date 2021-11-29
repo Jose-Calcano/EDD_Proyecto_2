@@ -189,19 +189,21 @@ public class LinkedList {
     /**
      * Prints the list in a pretty format
      */
-    public void print() {
+    public String print() {
+        String print = "";
         if (isEmpty()) {
             System.out.println("Vacia");
         } else {
             Node aux = this.head;
             int i = 0;
             while (aux != null) {
-                System.out.print(aux.getData() + "(" + i + ")" + " -> ");
+                print += (aux.getData() + "(" + i + ")" + " -> ");
                 aux = aux.getNextList();
                 i++;
             }
-            System.out.println("");
+            System.out.print("");
         }
+        return print;
     }
     
     public void sortList() {  
@@ -230,155 +232,5 @@ public class LinkedList {
             }      
         }  
     }  
-    
-    // merging two linked list
-	public Node sortedMerge(Node n1, Node n2) {
-            // Base cases
-            if (n1 == null)
-                    return n2;
-
-            else if (n2 == null)
-                    return n1;
-
-            Node result;
-
-            if (Node.comparator(n1, n2) <= 0)
-            {
-                    result = n1;
-                    result.setNextList(sortedMerge(n1.getNextList(), n2));
-            }
-            else
-            {
-                    result = n2;
-                    result.setNextList(sortedMerge(n1, n2.getNextList()));
-            }
-
-            return result;
-    }
-
-//splitting list into two halves
-    public Node[] splitList(Node n) {
-            // base case
-            if (n == null || n.getNextList() == null) {
-                    return new Node[]{ n, null } ;
-            }
-
-            Node backward = n;
-            Node forward = n.getNextList();
-
-            // Forward moves twice and backward moves once
-            while (forward != null)
-            {
-                    forward = forward.getNextList();
-                    if (forward != null)
-                    {
-                            backward = backward.getNextList();
-                            forward = forward.getNextList();
-                    }
-            }
-
-    // splitting the linked list
-            Node[] arr = new Node[]{ n, backward.getNextList() };
-            backward.setNextList(null);
-
-            return arr;
-    }
-
-    // Sorting linked list using merge sort.
-    public Node mergeSort(Node head)
-    {
-            // Base case
-            if (head == null || head.getNextList() == null) {
-                    return head;
-            }
-
-            Node[] arr = splitList(head);
-            Node first_half = arr[0];
-            Node second_half = arr[1];
-
-
-            first_half = mergeSort(first_half);
-            second_half = mergeSort(second_half);
-
-            // merge the two sorted list into single list.
-            return sortedMerge(first_half, second_half);
-    }
-    
-    /**
-     * Gets the data of the element at the given index
-     * @param index index of the element to look for
-     * @return Data of the element at given index
-     */
-    public Object get(int index) {
-        Node aux = this.head;
-        int count = 0;
-        while(count < index) {
-            aux = aux.getNextList();
-            count++;
-        }
-        
-        return aux.getData();
-    }
-
-    /**
-     * Replaces the first node of the list with another
-     * @param datum data to be replaced in the first node
-     */
-    public void setFirst(Object datum) {
-        if (isEmpty()) {
-            addFirst(datum);
-        } else {
-            Node n = new Node(datum);
-            n.setNextList(this.head.getNextList());
-            this.head.setNextList(null);
-            this.head = n;
-        }
-    }
-    
-    /**
-     * Replaces the last node of the list with another
-     * @param datum data to be replaced in the last node
-     */
-    public void setLast(Object datum) {
-        Node n = new Node(datum);
-        Node pre = this.head;
-        while(pre.getNextList().getNextList() != null) {
-            pre = pre.getNextList();
-        }
-        
-        Node temp = pre.getNextList();
-        pre.setNextList(n);
-        this.tail = n;
-        temp.setNextList(null);
-    }
-    
-    /**
-     * Replaces the node at the given index with another containing the given data
-     * @param i index of the node to be replaced
-     * @param datum data that will contain the node to replace with
-     */
-    public void set(int i, Object datum) {
-        if (isEmpty() || i == 0) {
-            setFirst(datum);
-        } else if (i == size() - 1) {
-            setLast(datum);
-        } else if (i < 0) {
-            set(size() + i, datum);
-        } else if (i > size() - 1) {
-            System.out.println("\nError");
-        } else {
-            Node n = new Node(datum);
-            Node aux = this.head;
-            int count = 0;
-            while (count < i-1) {
-                aux = aux.getNextList();
-                count++;
-            }
-            
-            Node toReplace = aux.getNextList();
-            n.setNextList(toReplace.getNextList());
-            aux.setNextList(n);
-            toReplace.setNextList(null);
-        }
-    }
+  
 }

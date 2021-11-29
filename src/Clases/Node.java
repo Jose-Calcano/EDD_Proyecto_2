@@ -14,6 +14,7 @@ public class Node {
     private String word;
     private Node nextList;
     private Node nextHash;
+    private int cantidad;
     
     
     /**
@@ -32,6 +33,7 @@ public class Node {
     public Node(Object datum){
         this.data = datum;
         this.nextList = null;
+        this.cantidad = 1; 
     }
 
 
