@@ -26,6 +26,7 @@ public class Funciones {
 
     public File documento;
     public boolean cargado;
+    public HashTable tabla;        
     
     public Funciones() {
         this.cargado = false;
@@ -57,17 +58,17 @@ public class Funciones {
         return info_txt;
     }
 
-    public HashTable separacionInfo(String info_txt) throws IOException {
+    public void separacionInfo(String info_txt) throws IOException {
         String cambio = info_txt.replace(',', '\n').replace('.', '\n').replace(':', '\n').replace(';', '\n').replace('?', '\n').replace('¿', '\n').replace('!', '\n').replace('¡', '\n').replace('/', '\n').replace(' ', '\n').replace('*' , '\n').replace('-', '\n').replace('_', '\n').replace('…', '\n').replace('[' , '\n').replace(']' , '\n');
         int tamaño = cambio.length();
-        HashTable tabla = new HashTable(tamaño);
+        this.tabla = new HashTable(tamaño);
         BufferedReader bufReader = new BufferedReader(new StringReader(cambio));
         String line = null;
         while ((line = bufReader.readLine()) != null) {
-            tabla.Hashing(line);
+            tabla.insert(line);
         }
 
-        return tabla;
+       
     }
     
     public int hashing(String texto, int num) {
