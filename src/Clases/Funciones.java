@@ -5,13 +5,17 @@
  */
 package Clases;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -135,6 +139,14 @@ public class Funciones {
         } else {
             JOptionPane.showMessageDialog(null, "la frase ingresada es más larga que el texto a revisar.");
         }
+    }
+    
+        public void scaleImage(JLabel frame, String imgName) {
+        ImageIcon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("test/Resources/" + imgName));
+        Image img = icon.getImage();
+        Image imgScale = img.getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(imgScale);
+        frame.setIcon(scaledIcon);
     }
 
 }
