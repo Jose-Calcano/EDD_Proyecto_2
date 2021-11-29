@@ -48,7 +48,7 @@ public class Funciones {
                     info_txt += line + "\n";
                 }
             }
-            System.out.println(info_txt);
+            
             
 
         } catch (Exception e) {
