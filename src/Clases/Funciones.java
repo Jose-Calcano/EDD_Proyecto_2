@@ -26,14 +26,19 @@ public class Funciones {
 
     public File documento;
     public boolean cargado;
-    public HashTable tabla;        
+    public HashTable tabla;   
+    public LinkedList lista;
     
     public Funciones() {
         this.cargado = false;
         this.documento = null;
+        this.lista = new LinkedList();
     }
     
-    
+    /**
+     * Funcion para cargar archivo .txt y que el programa lo lea como un String el cual contenga un texto para despues pasarlo a la funcion "separacionInfo" como parametro y eliminar signos de puntuacion y separarlo en palabras
+     * @return 
+     */
     public String cargarArchivo() {
         String info_txt = "";
         JFileChooser jf = new JFileChooser();
@@ -65,10 +70,13 @@ public class Funciones {
         BufferedReader bufReader = new BufferedReader(new StringReader(cambio));
         String line = null;
         while ((line = bufReader.readLine()) != null) {
-            tabla.insert(line);  //Se añade como un nodo, ya lo arregle
-        }
+            Node nodito = new Node(line);
+            tabla.insert(nodito);  
+            lista.addLast(nodito);
+            
 
        
+        }     
     }
     
     public int hashing(String texto, int num) {
