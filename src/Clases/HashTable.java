@@ -9,9 +9,9 @@ package Clases;
  *
  * @author dianabello
  */
-public class HashTable<K,V> {
+    public class HashTable<K,V> {
     
-    private Node hash[];
+    private LinkedList hash[];
     private int size;     // Tamaño actual de la tabla 
     
     
@@ -21,7 +21,7 @@ public class HashTable<K,V> {
      */
     public HashTable(int size){
         this.size = size; 
-        this.hash = new Node[size];
+        this.hash = new LinkedList[size];
         for (int i = 0; i < size; i++) {
             this.hash[i] = null; 
         }
