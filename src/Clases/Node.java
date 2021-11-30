@@ -14,7 +14,7 @@ public class Node {
     private String word;
     private Node nextList;
     private Node nextHash;
-    private int repeat;
+    public int repeat;
     
     
     /**
@@ -22,8 +22,10 @@ public class Node {
      * @param word
      */
     public Node(String word) {
-        this.nextHash = null; 
-        this.word = word; 
+        this.nextHash = null;
+        this.nextList = null;
+        this.word = word;
+        this.repeat = 1;
     }
     
     /**
@@ -33,7 +35,6 @@ public class Node {
     public Node(Object datum){
         this.data = datum;
         this.nextList = null;
-        this.repeat = repeat; 
     }
 
     public int getRepeat() {

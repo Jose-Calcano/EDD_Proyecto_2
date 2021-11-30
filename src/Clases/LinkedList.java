@@ -39,7 +39,7 @@ public class LinkedList {
      * Checks whether list is empty or not
      * @return 
      */
-    private boolean isEmpty() {
+    public boolean isEmpty() {
         return this.head == null;
     }
     
@@ -81,18 +81,25 @@ public class LinkedList {
     
     /**
      * Add datum to the last position of the list
-     * @param datum Datum to be added
+     * @param nodo
      */
-    public void addLast(Object datum) {
-        Node n = new Node(datum);
+    public void addLast(Node nodo) {
         if (isEmpty()) {
-            this.head = n;
-            this.tail = n;
-            this.head.setNextList(this.tail);
-            this.tail.setNextList(null);
+            this.head = nodo;
+            this.tail = nodo;
         } else {
-            this.tail.setNextList(n);
-            this.tail = n;
+            this.tail.setNextList(nodo);
+            this.tail = nodo;
+        }
+    }
+    
+        public void addLastHash(Node nodo) {
+        if (isEmpty()) {
+            this.head = nodo;
+            this.tail = nodo;
+        } else {
+            this.tail.setNextHash(nodo);
+            this.tail = nodo;
         }
     }
     
@@ -101,7 +108,7 @@ public class LinkedList {
      * @param datum Datum to be added
      * @param i Position to be added in
      */
-    public void add(Object datum, int i) {
+    public void add(Node datum, int i) {
         if (isEmpty() || i == 0) {
             this.addFirst(datum);
         } else if (i >= (size() - 1)) {

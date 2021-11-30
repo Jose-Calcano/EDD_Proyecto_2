@@ -65,7 +65,7 @@ public class Funciones {
         BufferedReader bufReader = new BufferedReader(new StringReader(cambio));
         String line = null;
         while ((line = bufReader.readLine()) != null) {
-            tabla.insert(line);
+            tabla.insert(line);  //Se añade como un nodo, ya lo arregle
         }
 
        
