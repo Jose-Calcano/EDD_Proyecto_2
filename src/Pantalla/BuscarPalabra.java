@@ -54,11 +54,13 @@ public class BuscarPalabra extends javax.swing.JFrame {
 
         jTextField1.setBackground(new java.awt.Color(204, 204, 204));
         jTextField1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
         jTextField1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jTextArea1.setBackground(new java.awt.Color(204, 204, 204));
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jTextArea1.setForeground(new java.awt.Color(0, 0, 0));
         jTextArea1.setRows(5);
         jTextArea1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jScrollPane1.setViewportView(jTextArea1);

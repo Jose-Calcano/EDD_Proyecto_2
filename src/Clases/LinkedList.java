@@ -95,8 +95,19 @@ public class LinkedList {
             this.head = nodo;
             this.tail = nodo;
         } else {
-            this.tail.setNextList(nodo);
-            this.tail = nodo;
+            Node temp = this.getHead();
+            while (temp != null) {
+                if (temp.getWord().equals(nodo.getWord())) {
+                    temp.repeat++;
+                    break;
+                } else {
+                    temp = temp.getNextList();
+                }
+            }
+            if (temp == null) {
+                this.tail.setNextList(nodo);
+                this.tail = nodo;
+            }
         }
     }
 
@@ -206,7 +217,8 @@ public class LinkedList {
 
     /**
      * Prints the list in a pretty format
-     * @return 
+     *
+     * @return
      */
     public String print() {
         String print = "";
@@ -219,8 +231,8 @@ public class LinkedList {
                 if (aux.getRepeat() != 1) {
                     System.out.println(aux.getWord() + " Se repite " + aux.getRepeat() + " veces ");
                 } else {
-                  
-                    print += (aux.getWord() + " Se repite " + aux.getRepeat() + " vez \n "); 
+
+                    print += (aux.getWord() + " Se repite " + aux.getRepeat() + " vez \n ");
                 }
                 aux = aux.getNextList();
                 i++;

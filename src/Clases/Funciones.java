@@ -68,7 +68,7 @@ public class Funciones {
         int tamaño = cambio.length();
         this.tabla = new HashTable(tamaño);
         BufferedReader bufReader = new BufferedReader(new StringReader(cambio));
-        String line = null;
+        String line = "";
         while ((line = bufReader.readLine()) != null) {
             Node nodito = new Node(line);
             tabla.insert(nodito);  
