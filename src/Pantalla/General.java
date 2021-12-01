@@ -176,10 +176,10 @@ public class General extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String info_txt = funcion.cargarArchivo();
-        this.funcion.cargado = true;
+        String info_txt = funcion.cargarArchivo();        
         try {
             funcion.separacionInfo(info_txt);
+            this.funcion.cargado = true;
         } catch (IOException ex) {
             Logger.getLogger(General.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -200,7 +200,7 @@ public class General extends javax.swing.JFrame {
     }//GEN-LAST:event_ExitActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        BuscarPalabra bp = new BuscarPalabra();
+        BuscarPalabra bp = new BuscarPalabra(funcion);
         bp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
