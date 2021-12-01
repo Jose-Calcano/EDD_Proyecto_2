@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 public class Karp extends javax.swing.JFrame {
 
     Funciones funcion;
+    boolean mod;
 
     /**
      * Creates new form Karp
@@ -24,6 +25,7 @@ public class Karp extends javax.swing.JFrame {
     public Karp(Funciones funcion) {
         initComponents();
         this.funcion = funcion;
+        this.mod = false;
     }
 
     /**
@@ -134,9 +136,25 @@ public class Karp extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        General nw = new General(funcion);
-        nw.setVisible(true);
-        this.dispose();
+        if (mod) {
+            String[] options = {"Si", "No"};
+            int response = JOptionPane.showOptionDialog(null, "¿Desea mantener los cambios realizados al artículo?", "¡Cuidado!", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, options, EXIT_ON_CLOSE);
+            if (response == 0) {
+                General nw = new General(funcion);
+                nw.setVisible(true);
+                this.dispose();
+            } else if (response == 1) {
+                this.funcion.fixText();
+                General nw = new General(funcion);
+                nw.setVisible(true);
+                this.dispose();
+            }
+        } else {
+            General nw = new General(funcion);
+            nw.setVisible(true);
+            this.dispose();
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -145,6 +163,9 @@ public class Karp extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debes añadir la frase en el cuadro de texto.");
         } else {
             funcion.rabinKarp(frase);
+            if (!mod) {
+                mod = true;
+            }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
