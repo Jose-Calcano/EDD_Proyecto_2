@@ -10,12 +10,14 @@ package Clases;
  * @author dianabello
  */
 public class LinkedList {
+
     private Node head;
     private Node tail;
 
     public Node getHead() {
         return this.head;
     }
+
     /**
      * Constructor for initially empty list
      */
@@ -25,6 +27,7 @@ public class LinkedList {
 
     /**
      * Constructor for list initially with one node
+     *
      * @param n
      */
     public LinkedList(Node n) {
@@ -34,36 +37,39 @@ public class LinkedList {
     public void setHead(Node head) {
         this.head = head;
     }
-    
+
     /**
      * Checks whether list is empty or not
-     * @return 
+     *
+     * @return
      */
     public boolean isEmpty() {
         return this.head == null;
     }
-    
+
     /**
-     *  Get the current size of the list
-     * @return 
+     * Get the current size of the list
+     *
+     * @return
      */
     public int size() {
         int i = 0;
-        
+
         if (isEmpty()) {
             return 0;
         }
-        
+
         Node aux = this.head;
-        while(aux != null) {
+        while (aux != null) {
             aux = aux.getNextList();
             i++;
         }
         return i;
     }
-    
+
     /**
      * Add datum to the first position of the list
+     *
      * @param datum Datum to be added
      */
     public void addFirst(Object datum) {
@@ -78,9 +84,10 @@ public class LinkedList {
             this.head = n;
         }
     }
-    
+
     /**
      * Add datum to the last position of the list
+     *
      * @param nodo
      */
     public void addLast(Node nodo) {
@@ -92,8 +99,8 @@ public class LinkedList {
             this.tail = nodo;
         }
     }
-    
-        public void addLastHash(Node nodo) {
+
+    public void addLastHash(Node nodo) {
         if (isEmpty()) {
             this.head = nodo;
             this.tail = nodo;
@@ -102,9 +109,10 @@ public class LinkedList {
             this.tail = nodo;
         }
     }
-    
+
     /**
      * Add datum to the specified position
+     *
      * @param datum Datum to be added
      * @param i Position to be added in
      */
@@ -115,11 +123,11 @@ public class LinkedList {
             this.addLast(datum);
         } else if (i < 0) {
             this.add(datum, size() + i);
-        }else {
+        } else {
             Node n = new Node(datum);
             Node aux = this.head; // Nodo previo
             int count = 0;
-            while(count < i -1) {
+            while (count < i - 1) {
                 aux = aux.getNextList();
                 count++;
             }
@@ -130,6 +138,7 @@ public class LinkedList {
 
     /**
      * Deletes first element of the list
+     *
      * @return The data of the first element
      */
     public Object deleteFirst() {
@@ -137,13 +146,14 @@ public class LinkedList {
             return null;
         }
         Node temp = this.head;
-        this.head= this.head.getNextList();
+        this.head = this.head.getNextList();
         temp.setNextList(null);
         return temp.getData();
     }
-    
+
     /**
      * Deletes last element of the list
+     *
      * @return The data of the last element
      */
     public Object deleteLast() {
@@ -151,7 +161,7 @@ public class LinkedList {
             return null;
         }
         Node pre = this.head;
-        while(pre.getNextList().getNextList() != null) {
+        while (pre.getNextList().getNextList() != null) {
             pre = pre.getNextList();
         }
         Node temp = pre.getNextList();
@@ -159,11 +169,12 @@ public class LinkedList {
         this.tail = pre;
         temp.setNextList(null);
         return temp.getData();
-        
+
     }
-    
+
     /**
      * Deletes the element at the specified position
+     *
      * @param i The position to be deleted
      * @return The data of the deleted element
      */
@@ -172,9 +183,9 @@ public class LinkedList {
             return null;
         } else if (i == 0) {
             return deleteFirst();
-        } else if (i == size() -1) {
+        } else if (i == size() - 1) {
             return deleteLast();
-        } else if (i < 0)  {
+        } else if (i < 0) {
             return delete(size() + i);
         } else if (i > size() - 1) {
             System.out.println("\nError");
@@ -182,7 +193,7 @@ public class LinkedList {
         } else {
             Node aux = this.head;
             int count = 0;
-            while(count < i-1) {
+            while (count < i - 1) {
                 aux = aux.getNextList();
                 count++;
             }
@@ -192,9 +203,10 @@ public class LinkedList {
             return del.getData();
         }
     }
-    
+
     /**
      * Prints the list in a pretty format
+     * @return 
      */
     public String print() {
         String print = "";
@@ -204,7 +216,12 @@ public class LinkedList {
             Node aux = this.head;
             int i = 0;
             while (aux != null) {
-                print += ( "Key: " + i + " Value: " + aux.getWord()); // "-->"
+                if (aux.getRepeat() != 1) {
+                    System.out.println(aux.getWord() + " Se repite " + aux.getRepeat() + " veces ");
+                } else {
+                  
+                    print += (aux.getWord() + " Se repite " + aux.getRepeat() + " vez \n "); 
+                }
                 aux = aux.getNextList();
                 i++;
             }
@@ -212,32 +229,31 @@ public class LinkedList {
         }
         return print;
     }
-    
-    public void sortList() {  
+
+    public void sortList() {
         //Node current will point to head  
-        Node current = head, index = null;  
-        Object temp;  
-          
-        if(head == null) {  
-            return;  
-        }  
-        else {  
-            while(current != null) {  
+        Node current = head, index = null;
+        Object temp;
+
+        if (head == null) {
+            return;
+        } else {
+            while (current != null) {
                 //Node index will point to node next to current  
-                index = current.getNextList();  
-                  
-                while(index != null) {  
+                index = current.getNextList();
+
+                while (index != null) {
                     //If current node's data is greater than index's node data, swap the data between them  
-                    if(Node.comparator(current, index) > 0) {  
-                        temp = current.getData();  
-                        current.setData(index.getData());  
-                        index.setData(temp);  
-                    }  
-                    index = index.getNextList();  
-                }  
-                current = current.getNextList();  
-            }      
-        }  
-    }  
-  
+                    if (Node.comparator(current, index) > 0) {
+                        temp = current.getRepeat();
+                        current.setRepeat(index.getRepeat());
+                        index.setRepeat((int) temp);
+                    }
+                    index = index.getNextList();
+                }
+                current = current.getNextList();
+            }
+        }
+    }
+
 }
