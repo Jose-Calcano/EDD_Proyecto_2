@@ -80,6 +80,7 @@ public class General extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 22)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Verificador de Artículos");
 
         jButton4.setBackground(new java.awt.Color(0, 102, 0));
@@ -157,7 +158,7 @@ public class General extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
