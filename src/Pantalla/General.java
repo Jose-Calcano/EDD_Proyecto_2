@@ -21,7 +21,7 @@ public class General extends javax.swing.JFrame {
 
     public General() {
         initComponents();
-        this.setLocationRelativeTo(null); 
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.funcion = new Funciones();
         funcion.scaleImage(jLabel2, "plagio.jpg");
@@ -181,10 +181,12 @@ public class General extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String info_txt = funcion.cargarArchivo();        
-        try {
-            funcion.separacionInfo(info_txt);
+        String info_txt = funcion.cargarArchivo();
+        if (!info_txt.equals("")) {
             this.funcion.cargado = true;
+        }
+        try {
+            funcion.separacionInfo(info_txt);            
         } catch (IOException ex) {
             Logger.getLogger(General.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -205,15 +207,23 @@ public class General extends javax.swing.JFrame {
     }//GEN-LAST:event_ExitActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        BuscarPalabra bp = new BuscarPalabra(funcion);
-        bp.setVisible(true);
-        this.dispose();
+        if (funcion.cargado) {
+            BuscarPalabra bp = new BuscarPalabra(funcion);
+            bp.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "No ha cargado un archivo para revisar.");
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        MasUsadas nw = new MasUsadas(funcion);
-        nw.setVisible(true);
-        this.dispose();
+        if (funcion.cargado) {
+            MasUsadas nw = new MasUsadas(funcion);
+            nw.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "No ha cargado un archivo para revisar.");
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
