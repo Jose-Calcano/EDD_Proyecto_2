@@ -6,6 +6,7 @@
 package Pantalla;
 
 import Clases.Funciones;
+import Clases.LinkedList;
 import Clases.Node;
 
 /**
@@ -23,7 +24,7 @@ public class MasUsadas extends javax.swing.JFrame {
         initComponents();
         this.funcion = funcion;
         String elementos = "";
-//        this.funcion.lista.sortList();
+        this.funcion.lista.sortList();
         Node temp = funcion.lista.getHead();
         while (temp != null) {
             elementos += "Palabra: " + temp.getWord() + " ---> " + temp.getRepeat() + " repeticiones" + "\n";

@@ -68,24 +68,6 @@ public class LinkedList {
     }
 
     /**
-     * Add datum to the first position of the list
-     *
-     * @param datum Datum to be added
-     */
-    public void addFirst(Object datum) {
-        Node n = new Node(datum);
-        if (isEmpty()) {
-            this.head = n;
-            this.tail = n;
-            this.head.setNextList(this.tail);
-            this.tail.setNextList(null);
-        } else {
-            n.setNextList(this.head);
-            this.head = n;
-        }
-    }
-
-    /**
      * Add datum to the last position of the list
      *
      * @param nodo
@@ -98,7 +80,6 @@ public class LinkedList {
             Node temp = this.getHead();
             while (temp != null) {
                 if (temp.getWord().equals(nodo.getWord())) {
-                    temp.repeat++;
                     break;
                 } else {
                     temp = temp.getNextList();
@@ -110,7 +91,10 @@ public class LinkedList {
             }
         }
     }
-
+    /**
+     * Description: Añade al final de una de las listas de la HashTable
+     * @param nodo nodo a añadir
+     */
     public void addLastHash(Node nodo) {
         if (isEmpty()) {
             this.head = nodo;
@@ -120,151 +104,66 @@ public class LinkedList {
             this.tail = nodo;
         }
     }
-
     /**
-     * Add datum to the specified position
-     *
-     * @param datum Datum to be added
-     * @param i Position to be added in
+     * Description: Elimina un nodo de la lista
+     * @param element nodo a eliminar
      */
-    public void add(Node datum, int i) {
-        if (isEmpty() || i == 0) {
-            this.addFirst(datum);
-        } else if (i >= (size() - 1)) {
-            this.addLast(datum);
-        } else if (i < 0) {
-            this.add(datum, size() + i);
-        } else {
-            Node n = new Node(datum);
-            Node aux = this.head; // Nodo previo
-            int count = 0;
-            while (count < i - 1) {
-                aux = aux.getNextList();
-                count++;
-            }
-            n.setNextList(aux.getNextList());
-            aux.setNextList(n);
-        }
-    }
-
-    /**
-     * Deletes first element of the list
-     *
-     * @return The data of the first element
-     */
-    public Object deleteFirst() {
-        if (isEmpty()) {
-            return null;
-        }
-        Node temp = this.head;
-        this.head = this.head.getNextList();
-        temp.setNextList(null);
-        return temp.getData();
-    }
-
-    /**
-     * Deletes last element of the list
-     *
-     * @return The data of the last element
-     */
-    public Object deleteLast() {
-        if (isEmpty()) {
-            return null;
-        }
-        Node pre = this.head;
-        while (pre.getNextList().getNextList() != null) {
-            pre = pre.getNextList();
-        }
-        Node temp = pre.getNextList();
-        pre.setNextList(null);
-        this.tail = pre;
-        temp.setNextList(null);
-        return temp.getData();
-
-    }
-
-    /**
-     * Deletes the element at the specified position
-     *
-     * @param i The position to be deleted
-     * @return The data of the deleted element
-     */
-    public Object delete(int i) {
-        if (isEmpty()) {
-            return null;
-        } else if (i == 0) {
-            return deleteFirst();
-        } else if (i == size() - 1) {
-            return deleteLast();
-        } else if (i < 0) {
-            return delete(size() + i);
-        } else if (i > size() - 1) {
-            System.out.println("\nError");
-            return null;
-        } else {
-            Node aux = this.head;
-            int count = 0;
-            while (count < i - 1) {
-                aux = aux.getNextList();
-                count++;
-            }
-            Node del = aux.getNextList();
-            aux.setNextList(del.getNextList());
-            del.setNextList(null);
-            return del.getData();
-        }
-    }
-
-    /**
-     * Prints the list in a pretty format
-     *
-     * @return
-     */
-    public String print() {
-        String print = "";
-        if (isEmpty()) {
-            System.out.println("Vacia");
-        } else {
-            Node aux = this.head;
-            int i = 0;
-            while (aux != null) {
-                if (aux.getRepeat() != 1) {
-                    System.out.println(aux.getWord() + " Se repite " + aux.getRepeat() + " veces ");
-                } else {
-
-                    print += (aux.getWord() + " Se repite " + aux.getRepeat() + " vez \n ");
+    public void eliminar(Node element) {
+        if (!this.isEmpty()) {
+            Node temp = this.head;
+            if (temp.getWord().equals(element.getWord())) {
+                this.head = temp.getNextList();
+                if (temp.getNextList() == null) {
+                    this.tail = null;
                 }
-                aux = aux.getNextList();
-                i++;
-            }
-            System.out.print("");
-        }
-        return print;
-    }
-
-    public void sortList() {
-        //Node current will point to head  
-        Node current = head, index = null;
-        Object temp;
-
-        if (head == null) {
-            return;
-        } else {
-            while (current != null) {
-                //Node index will point to node next to current  
-                index = current.getNextList();
-
-                while (index != null) {
-                    //If current node's data is greater than index's node data, swap the data between them  
-                    if (Node.comparator(current, index) > 0) {
-                        temp = current.getRepeat();
-                        current.setRepeat(index.getRepeat());
-                        index.setRepeat((int) temp);
+            } else {
+                while (temp.getNextList() != null) {
+                    if (temp.getNextList().getWord().equals(element.getWord())) {
+                        if (this.tail.getWord().equals(element.getWord())) {
+                            this.tail = temp;
+                        }
+                        temp.setNextList(element.getNextList());
+                        break;
+                    } else {
+                        temp = temp.getNextList();
                     }
-                    index = index.getNextList();
                 }
-                current = current.getNextList();
             }
+        }
+    }
+    /**
+     * Description: Obtiene uno de los nodos con el menor número de repeticiones
+     * @return Nodo buscado
+     */
+    public Node getMin() {
+        if (!isEmpty()) {
+            Node result = this.head;
+            Node aux = result.getNextList();
+            if (aux != null) {
+                while (aux != null) {
+                    if (aux.getRepeat() < result.getRepeat()) {
+                        result = aux;
+                    }
+                    aux = aux.getNextList();
+                }
+                return result;
+            } else {
+                return result;
+            }
+        } else {
+            return null;
+        }
+    }
+    /**
+     * Description: Ordena la lista de mayor a menor respecto al número de repeticiones
+     */
+    public void sortList() {
+        if (!isEmpty()) {
+            Node nodo = this.getMin();
+            eliminar(nodo);
+            this.sortList();
+            nodo.setNextList(null);
+            this.addLast(nodo);
         }
     }
 

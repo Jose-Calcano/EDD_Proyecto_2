@@ -70,16 +70,6 @@ public class HashTable<K, V> {
         return (value % size);
     }
 
-    public int repeatedWord(String word) {
-        Node a = search(word);
-        if (a == null) {
-            System.out.println("\n No se encuentra en la tabla");
-            return 0;
-        } else {
-            return a.getRepeat();
-        }
-    }
-
     /**
      * Inserta un dato en la hashTable
      *
@@ -122,26 +112,4 @@ public class HashTable<K, V> {
         }
         return result;
     }
-
-    /**
-     * Muestra los datos de la hash table por consola
-     */
-//    public void print() {
-//        int count = 1;
-//        for (int j = 0; j < size; j++) {
-//            if (this.hash[j] != null) {
-//                System.out.print("\n Key: " + Hashing(this.hash[j].getWord()) + ". Value: " + this.hash[j].getWord());
-//                if (this.hash[j].getNextHash() != null) {
-//                    Node temp = this.hash[j].getNextHash();
-//                    while (temp != null) {
-//                        System.out.print(" --> Key: " + Hashing(temp.getWord()) + ". Value: " + temp.getWord());
-//                        temp = temp.getNextHash();
-//                        count++;
-//                    }
-//                }
-//                count++;
-//            }
-//        }
-//
-//    }
 }

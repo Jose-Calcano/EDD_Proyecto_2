@@ -75,18 +75,4 @@ public class Node {
     public void setNextHash(Node nextHash) {
         this.nextHash = nextHash;
     }
-
-    public static int comparator(Node firstNode, Node secondNode) {
-        
-        Integer firstDataInteger = (Integer) firstNode.getRepeat();
-        Integer secondDataInteger = (Integer) secondNode.getRepeat();
-        
-        if (firstDataInteger < secondDataInteger) {
-            return 1;
-        } else if (secondDataInteger < firstDataInteger) {
-            return -1;
-        } else {
-            return 0;
-        }  
-   }
 }
