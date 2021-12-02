@@ -23,11 +23,13 @@ public class MasUsadas extends javax.swing.JFrame {
         initComponents();
         this.funcion = funcion;
         String elementos = "";
-        this.funcion.lista.sortList();
+//        this.funcion.lista.sortList();
         Node temp = funcion.lista.getHead();
         while (temp != null) {
-            elementos += "Palabra: " + temp.getWord() + "--->" + temp.getRepeat() + "repeticiones" + "\n";
+            elementos += "Palabra: " + temp.getWord() + " ---> " + temp.getRepeat() + " repeticiones" + "\n";
+            temp = temp.getNextList();
         }
+        jTextArea1.setText(elementos);
     }
 
     /**
@@ -60,6 +62,11 @@ public class MasUsadas extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(153, 0, 0));
         jButton1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jButton1.setText("Regresar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -106,7 +113,14 @@ public class MasUsadas extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        General nw = new General(funcion);
+        nw.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

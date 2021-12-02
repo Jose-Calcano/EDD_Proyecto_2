@@ -33,6 +33,7 @@ public class Funciones {
         this.cargado = false;
         this.documento = null;
         this.lista = new LinkedList();
+        this.tabla = new HashTable(300);
     }
 
     /**
@@ -64,16 +65,17 @@ public class Funciones {
         }
         return info_txt;
     }
+
     /**
      * Description: Separa cada palabra del string "info_txt"
+     *
      * @param info_txt texto completo del artículo
-     * @throws IOException 
+     * @throws IOException
      */
     public void separacionInfo(String info_txt) throws IOException {
-        String cambio = info_txt.replace(',', '\n').replace('.', '\n').replace(':', '\n').replace(';', '\n').replace('?', '\n').replace('¿', '\n').replace('!', '\n').replace('¡', '\n').replace('/', '\n').replace(' ', '\n').replace('*', '\n').replace('-', '\n').replace('_', '\n').replace('…', '\n').replace('[', '\n').replace(']', '\n').toLowerCase();
-        int tamaño = cambio.length();
-        this.tabla = new HashTable(tamaño);
-        BufferedReader bufReader = new BufferedReader(new StringReader(cambio));
+        String cambio = info_txt.replaceAll(",", "").replaceAll(";", "").replaceAll(":", "").replace('[', ' ').replaceAll("]", "").replace('(', ' ').replace(')', ' ').replace('!', ' ').replace('¡', ' ').replace('¿', ' ').replace('?', ' ').replaceAll("\n", " ").replaceAll("  ", " ").replaceAll("   ", " ").replace(".", "").replace("%", "").replace("$", "").replace("-", "").toLowerCase();
+        String a = cambio.replaceAll(" ", "\n");
+        BufferedReader bufReader = new BufferedReader(new StringReader(a));
         String line = "";
         while ((line = bufReader.readLine()) != null) {
             Node nodito = new Node(line);
@@ -82,10 +84,13 @@ public class Funciones {
 
         }
     }
+
     /**
      * Description: Hashing rodante utilizado para el algoritmo de karp
+     *
      * @param texto Segmento de texto a sacar el hash
-     * @param num -1 si es la primera vez, de no ser asi es el hash del caracter viejo
+     * @param num -1 si es la primera vez, de no ser asi es el hash del caracter
+     * viejo
      * @return el hash del parametro "texto"
      */
     public int hashing(String texto, int num) {
@@ -103,8 +108,12 @@ public class Funciones {
         }
         return resultado;
     }
+
     /**
-     * Description: Realiza una busqueda de la frase en todo el documento cargado mediante el algoritmo de Rabin-Karp, y regresa su primera instancia
+     * Description: Realiza una busqueda de la frase en todo el documento
+     * cargado mediante el algoritmo de Rabin-Karp, y regresa su primera
+     * instancia
+     *
      * @param frase frase a buscar
      */
     public void rabinKarp(String frase) {
@@ -161,10 +170,13 @@ public class Funciones {
             JOptionPane.showMessageDialog(null, "la frase ingresada es más larga que el texto a revisar.");
         }
     }
+
     /**
      * Description: Ajusta el tamaño de una imagen a la de un Label
+     *
      * @param frame el Label que se usa de referencia de tamaño
-     * @param imgName nombre completo de la imagen a ajustar (debe estar en Test/Resources)
+     * @param imgName nombre completo de la imagen a ajustar (debe estar en
+     * Test/Resources)
      */
     public void scaleImage(JLabel frame, String imgName) {
         ImageIcon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("test/Resources/" + imgName));
@@ -173,6 +185,7 @@ public class Funciones {
         ImageIcon scaledIcon = new ImageIcon(imgScale);
         frame.setIcon(scaledIcon);
     }
+
     /**
      * Description: Elimina los dobles asteriscos del texto.
      */
@@ -232,6 +245,5 @@ public class Funciones {
  * Integer.parseInt(atributos[2])); } JOptionPane.showMessageDialog(null,
  * "Archivo cargado en el sistema."); this.full = true; } else {
  * JOptionPane.showMessageDialog(null, "El archivo esta vacío"); } } catch
- * (Exception e) { JOptionPane.showMessageDialog(null, "Error de lectura");
-        }
+ * (Exception e) { JOptionPane.showMessageDialog(null, "Error de lectura"); }
  */
